@@ -16,6 +16,9 @@
     "url": "git+https://github.com/kayleighkat98/express-boilerplate2.git"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.18.0"
+    },
   "author": "",
   "license": "ISC",
   "bugs": {
