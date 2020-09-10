@@ -32,9 +32,9 @@ app.use(function errorHandler(error, req, res, next) {
     response = { error: { message: 'server error' } };
   } else {
     //more complex error for development
-    console.error(error);
     response = { message: error.message, error };
   }
+  console.error(error);
   res.status(500).json(response);
 });
 
