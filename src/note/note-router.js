@@ -17,9 +17,11 @@ NoteRouter
     } 
   })
   .post(jsonParser, async (req, res, next) => {
+    console.log('demo');
     const db = req.app.get('db');
     const { name, content, folder_id } = req.body;
     let newNote = {name, content, folder_id};
+    console.log("newNote",newNote)
 
     for (const [key, value] of Object.entries(newNote)) {
       if (value === null) {
@@ -29,7 +31,10 @@ NoteRouter
 
     newNote = sanitizeFields(newNote);
     try {
+      console.log('before note');
       const note = await NoteService.insert(db, newNote);
+      
+      console.log('after await')
       res
         .status(201)
         .location(path.posix.join(req.originalUrl, `/${note.id}`))

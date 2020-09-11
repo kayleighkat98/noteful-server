@@ -8,7 +8,7 @@ const xss = require('xss')
 const uuid = require
 
 const serializeFolder = folder => ({
-  id: folder.id,
+  folder_id: folder.folder_id,
   name: xss(folder.name)
 });
 
@@ -26,7 +26,7 @@ FolderRouter
     const db = req.app.get('db');
     const { name } = req.body;
     let newFolder = {name};
-
+    console.log('newFolder',newFolder)
     for (const [key, value] of Object.entries(newFolder)) {
       if (value === null) {
         return next({status: 400, message: `Missing '${key}' in request body`});
@@ -63,6 +63,14 @@ FolderRouter
   })
   .get((req, res, next) => {
     res.json(serializeFolder(res.folder));
+  })
+  .delete(async (req, res, next) => {
+    try {
+      await FolderService.delete(req.app.get('db'), req.params.folder_id);
+      res.status(200).json({});
+    } catch(err) {
+      next(err);
+    }
   })
 
 

@@ -19,7 +19,11 @@ const FolderService = {
           .where({folder_id})
           .first('*')
       },
-    
+      delete(knex, folder_id) {
+        return knex('folder')
+          .where({ folder_id })
+          .delete()
+      },
 
 }
 
